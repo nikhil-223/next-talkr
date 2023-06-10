@@ -1,3 +1,4 @@
+import ToasterContext from './context/ToasterContext';
 import './globals.css'
 import { Poppins } from 'next/font/google'
 
@@ -18,7 +19,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <ToasterContext/>
+        {children}</body>
     </html>
   )
 }

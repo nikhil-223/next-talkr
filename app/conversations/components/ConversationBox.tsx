@@ -1,14 +1,14 @@
 "use client";
 
-import Avatar from "@/app/components/Avatar";
-import useOtherUser from "@/app/hooks/useOtherUser";
-import { FullConversationType } from "@/app/types";
-import axios from "axios";
-import clsx from "clsx";
-import { format } from "date-fns";
+import { useCallback, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import { format } from "date-fns";
+import clsx from "clsx";
+
+import { FullConversationType } from "@/app/types";
+import useOtherUser from "@/app/hooks/useOtherUser";
+import Avatar from "@/app/components/Avatar";
 
 interface ConversationBoxProps {
 	data: FullConversationType;
@@ -24,7 +24,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
 	const router = useRouter();
 
 	const handleClick = useCallback(() => {
-		router.push(`/conversation/${data.id}`);
+		router.push(`/conversations/${data.id}`);
 	}, [data.id, router]);
 
 	const lastMessage = useMemo(() => {

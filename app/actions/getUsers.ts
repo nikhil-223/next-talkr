@@ -7,7 +7,7 @@ const getUsers = async () => {
 		const session = await getSession();
 
 		if (!session?.user?.email) {
-			return null;
+			return [];
 		}
 
 		const users = await prisma.user.findMany({
@@ -20,12 +20,12 @@ const getUsers = async () => {
 		});
 
 		if (!users) {
-			return null;
+			return [];
 		}
 
 		return users;
 	} catch (error: any) {
-		return null;
+		return [];
 	}
 };
 

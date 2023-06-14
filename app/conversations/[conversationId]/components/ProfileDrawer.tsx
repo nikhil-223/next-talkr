@@ -9,6 +9,7 @@ import useOtherUser from "@/app/hooks/useOtherUser";
 import Avatar from "@/app/components/Avatar";
 import Modal from "@/app/components/modals/Modal";
 import ConfirmModal from "./ConfirmModal";
+import AvatarGroup from "@/app/components/AvatarGroup";
 
 interface ProfileDrawerProps {
 	data: Conversation & {
@@ -86,7 +87,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                       <div className="relative mt-6 flex-1 px-4 sm:px-6">
                         <div className="flex flex-col items-center">
                           <div className="mb-2">
-                            <Avatar user={otherUser} />
+                            {data.isGroup? <AvatarGroup image={data.image}/> :<Avatar user={otherUser} /> }
                           </div>
                           <div>{title}</div>
                           <div className="text-sm text-gray-500">

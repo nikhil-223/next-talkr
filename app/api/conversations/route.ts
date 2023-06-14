@@ -6,7 +6,7 @@ export async function POST(request: Request) {
 	try {
 		const currentUser = await getCurrentUser();
 		const body = await request.json();
-		const { userId, isGroup, members, name } = body;
+		const { userId, isGroup, members, name,image } = body;
 
 		if (!currentUser?.id || !currentUser?.email) {
 			return new NextResponse("unauthorized", { status: 401 });
@@ -21,6 +21,7 @@ export async function POST(request: Request) {
 				data: {
 					name,
 					isGroup,
+					image,
 					users: {
 						connect: [
 							...members.map((member: { value: string }) => ({

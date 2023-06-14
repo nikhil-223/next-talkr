@@ -1,9 +1,13 @@
+'use client'
+
 import Avatar from "@/app/components/Avatar";
 import { FullMessageType } from "@/app/types";
 import clsx from "clsx";
 import { format } from "date-fns";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import ImageModal from "./ImageModal";
+import { useState } from "react";
 
 interface MessageBoxProps {
 	isLast: boolean;
@@ -11,7 +15,10 @@ interface MessageBoxProps {
 }
 
 const MessageBox: React.FC<MessageBoxProps> = ({ isLast, data }) => {
+
 	const session = useSession();
+
+	const [isModalOpen, setIsModalOpen] = useState(false)
 
 	const isOwn = session?.data?.user?.email === data?.sender?.email;
 	const seenList = (data.seen || [])
@@ -45,16 +52,25 @@ const MessageBox: React.FC<MessageBoxProps> = ({ isLast, data }) => {
 				</div>
 				<div className={message}>
 					{data.image ? (
-						<div className="relative h-auto ">
-							<Image alt="sentimage" className=" object-contain" src={data.image} width={430} height={30}/>
-						</div>
+						<>
+							<ImageModal isOpen={isModalOpen} onClose={()=>{setIsModalOpen(false)}} image={data.image} />
+							<div onClick={()=>setIsModalOpen(true)} className="relative h-auto ">
+								<Image
+									alt="sentimage"
+									className=" object-contain"
+									src={data.image}
+									width={430}
+									height={30}
+								/>
+							</div>
+						</>
 					) : (
 						<div>{data.body}</div>
 					)}
 				</div>
-				{isLast && isOwn && seenList.length > 0 && (<div className="text-xs text-gray-400">
-					{`Seen by ${seenList}`}
-				</div>)}
+				{isLast && isOwn && seenList.length > 0 && (
+					<div className="text-xs text-gray-400">{`Seen by ${seenList}`}</div>
+				)}
 			</div>
 		</div>
 	);

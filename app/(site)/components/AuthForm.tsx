@@ -11,9 +11,11 @@ import Button from "@/app/components/Button";
 import Input from "@/app/components/inputs/Input";
 import AuthSocialButton from "./AuthSocialButton";
 import { useRouter } from "next/navigation";
+import getSession from "@/app/actions/getSession";
 
 const AuthForm = () => {
 	const session = useSession();
+	console.log(session);
 	const router = useRouter();
 	const [variant, setVariant] = useState("LOGIN");
 	const [isLoading, setIsLoading] = useState(false);

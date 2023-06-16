@@ -46,7 +46,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
 		}
 
 		return isActive? `online`:'offline';
-	}, [data.users]);
+	}, [data.users,data.isGroup,isActive]);
 
 	return (
     <>

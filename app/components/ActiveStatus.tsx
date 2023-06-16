@@ -1,4 +1,4 @@
-'use client '
+'use client'
 
 import useActiveChannel from "../hooks/useActiveChannel";
 

@@ -18,7 +18,6 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({ image }) => {
 					src={image || "/images/placeholder.jpg"}
 				/>
 			</div>
-			<span className="absolute block rounded-full bg-green-500 ring-2 ring-white w-2 h-2 md:w-3 md:h-3 top-0 right-0" />
 		</div>
 	);
 };

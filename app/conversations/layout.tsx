@@ -15,7 +15,6 @@ export default async function UsersLayout({
 	const currentUser= await getCurrentUser()
 
 	return (
-		// @ts-expect-error Server Component
 		<Sidebar>
 			<div className="h-full">
 				<ConversationList

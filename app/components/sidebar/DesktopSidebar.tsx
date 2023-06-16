@@ -1,11 +1,13 @@
 "use client";
 
 import useRoutes from "@/app/hooks/useRoutes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DesktopItem from "./DesktopItem";
 import { User } from "@prisma/client";
 import Avatar from "../Avatar";
 import SettingsModal from "../modals/SettingsModal";
+import { usePathname, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 interface DesktopSidebarProps {
 	currentUser: User;
@@ -13,7 +15,18 @@ interface DesktopSidebarProps {
 
 const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
 	const routes = useRoutes();
+
+	const router = useRouter()
+	const session = useSession();
+	
 	const [isOpen, setIsOpen] = useState(false);
+
+	useEffect(() => {
+		if (session?.status !== "authenticated") {
+			router.push("/");
+		}
+	}, [session?.status, router]);
+	
 
 	return (
 		<>

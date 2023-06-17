@@ -100,15 +100,16 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose,user:curr
 									Photo
 								</label>
 								<div className="mt-2 flex items-center gap-x-3">
-									<Image
-										width="48"
-										height="48"
-										className="rounded-full"
-										src={
-											image || currentUser?.image || "/images/placeholder.jpg"
-										}
-										alt="Avatar"
-									/>
+									<div className="relative inline-block rounded-full overflow-hidden h-9 w-9 md:h-11 md:w-11 ">
+										<Image
+											alt="Avatar"
+											width={50}
+											height={50}
+											src={
+												image || currentUser?.image || "/images/placeholder.jpg"
+											}
+										/>
+									</div>
 									<CldUploadButton
 										options={{ maxFiles: 1 }}
 										onUpload={handleUpload}

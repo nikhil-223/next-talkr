@@ -84,6 +84,17 @@ const MessageBox: React.FC<MessageBoxProps> = ({ isLast, data }) => {
 						{data.createdAt ? format(new Date(data.createdAt), "p") : ""}
 					</div>
 					<div
+						onClick={() => {
+							setIsOptionsOpen((current) => {
+								return !current;
+							});
+						}}
+						className={clsx(
+							`absolute w-screen h-screen top-0 left-0 bg-red-100 opacity-5`,
+							isOptionsOpen ? "flex" : "hidden",
+						)}
+					/>
+					<div
 						className="relative cursor-pointer"
 						onClick={() => {
 							setIsOptionsOpen((current) => {

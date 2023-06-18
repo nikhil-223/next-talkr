@@ -31,6 +31,17 @@ const MobileFooter: React.FC<MobileFooterProps> = ({ currentUser }) => {
 				onClose={() => setIsModalOpen(false)}
 				user={currentUser}
 			/>
+			<div
+				onClick={() =>
+					setIsSettingOpen((current) => {
+						return !current;
+					})
+				}
+				className={clsx(
+					`absolute w-screen h-screen top-0 left-0 bg-gray-300 opacity-5 z-50`,
+					isSettingOpen ? "flex" : "hidden"
+				)}
+			/>
 			<div className="fixed justify-between w-full bottom-0 z-40 flex items-center bg-white border-t-[1px] lg:hidden">
 				{routes.map(
 					(item) =>
@@ -45,33 +56,34 @@ const MobileFooter: React.FC<MobileFooterProps> = ({ currentUser }) => {
 							/>
 						)
 				)}
+
 				<div
 					className={clsx(
-						`group relative flex gap-x-3 text-sm leading-6 font-semibold w-full justify-center p-4 text-gray-500 hover:text-black`
+						`group flex gap-x-3 text-sm leading-6 font-semibold w-full justify-center p-4 text-gray-500 hover:text-black`
 					)}>
-					<div
-						className={clsx(
-							`absolute -top-2 -translate-y-full bg-slate-100 rounded-t-md text-lg px-3 py-2 text-black `,
-							isSettingOpen ? "flex" : "hidden"
-						)}>
-						<ul className=" flex flex-col">
-							<li
-								onClick={() => setIsModalOpen(true)}
-								className="p-2 hover:opacity-50">
-								Profile
-							</li>
-							<li className="p-2 hover:opacity-50" onClick={() => signOut()}>
-								LogOut
-							</li>
-						</ul>
-					</div>
 					<div
 						onClick={() =>
 							setIsSettingOpen((current) => {
 								return !current;
 							})
 						}
-						className="cursor-pointer hover:opacity-75 transition">
+						className="relative cursor-pointer hover:opacity-75 transition">
+						<div
+							className={clsx(
+								`absolute -top-5 right-0 translate-x-1/2 -translate-y-full bg-slate-100 rounded-t-md text-lg px-3 py-2 text-black `,
+								isSettingOpen ? "flex" : "hidden"
+							)}>
+							<ul className=" flex flex-col">
+								<li
+									onClick={() => setIsModalOpen(true)}
+									className="p-2 hover:opacity-50">
+									Profile
+								</li>
+								<li className="p-2 hover:opacity-50" onClick={() => signOut()}>
+									LogOut
+								</li>
+							</ul>
+						</div>
 						<Avatar user={currentUser} />
 					</div>
 				</div>

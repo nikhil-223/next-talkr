@@ -49,15 +49,25 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
         return currentMessage;
       }))
     };
+
+    const deleteMessageHandler = (deletedMessage: FullMessageType) => {
+			setMessages((current) =>
+				current.filter((currentMessage) => {
+					return currentMessage.id !== deletedMessage.id
+				})
+			);
+		};
   
 
     pusherClient.bind('messages:new', messageHandler)
+    pusherClient.bind('messages:delete', deleteMessageHandler)
     pusherClient.bind('message:update', updateMessageHandler);
 
     return () => {
       pusherClient.unsubscribe(conversationId)
       pusherClient.unbind('messages:new', messageHandler)
       pusherClient.unbind('message:update', updateMessageHandler)
+      pusherClient.unbind("message:delete", deleteMessageHandler);
     }
   }, [conversationId]);
 

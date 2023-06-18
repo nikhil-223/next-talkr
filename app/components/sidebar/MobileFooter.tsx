@@ -38,7 +38,7 @@ const MobileFooter: React.FC<MobileFooterProps> = ({ currentUser }) => {
 					})
 				}
 				className={clsx(
-					`absolute w-screen h-screen top-0 left-0 bg-gray-300 opacity-5 z-50`,
+					`absolute w-screen h-screen top-0 left-0 bg-gray-100 opacity-5 z-40`,
 					isSettingOpen ? "flex" : "hidden"
 				)}
 			/>
@@ -70,7 +70,7 @@ const MobileFooter: React.FC<MobileFooterProps> = ({ currentUser }) => {
 						className="relative cursor-pointer hover:opacity-75 transition">
 						<div
 							className={clsx(
-								`absolute -top-5 right-0 translate-x-1/2 -translate-y-full bg-slate-100 rounded-t-md text-lg px-3 py-2 text-black `,
+								`absolute -top-5 right-0 translate-x-1/2 -translate-y-full bg-slate-100 rounded-t-md text-lg px-3 py-2 text-black z-50 `,
 								isSettingOpen ? "flex" : "hidden"
 							)}>
 							<ul className=" flex flex-col">

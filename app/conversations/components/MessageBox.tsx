@@ -39,16 +39,16 @@ const MessageBox: React.FC<MessageBoxProps> = ({ isLast, data }) => {
 
 	const avatar = clsx(isOwn && "order-2");
 
-	const body = clsx("flex flex-col gap-2", isOwn && "items-end");
+	const body = clsx("flex flex-col gap-2 w-3/4", isOwn && "items-end");
 
 	const message = clsx(
-		"text-sm w-fit overflow-hidden",
+		"text-sm w-fit max-w-full overflow-hidden",
 		isOwn
 			? data.image
 				? "text-white"
 				: "text-white bg-sky-500"
 			: "bg-gray-100 ",
-		data.image ? "rounded-md p-0" : "rounded-full py-2 px-3"
+		data.image ? "rounded-md p-0" : "rounded-[20px] py-2 px-3"
 	);
 
 	const handleCopy = () => {
@@ -73,78 +73,81 @@ const MessageBox: React.FC<MessageBoxProps> = ({ isLast, data }) => {
 	}, [data.id]);
 
 	return (
-		<div className={container}>
-			<div className={avatar}>
-				<Avatar user={data.sender} />
-			</div>
-			<div className={body}>
-				<div className="flex items-center gap-1">
-					<div className="text-sm text-gray-500">{data.sender.name}</div>
-					<div className="text-xs text-gray-400">
-						{data.createdAt ? format(new Date(data.createdAt), "p") : ""}
-					</div>
-					<div
-						onClick={() => {
-							setIsOptionsOpen((current) => {
-								return !current;
-							});
-						}}
-						className={clsx(
-							`absolute w-screen h-screen top-0 left-0 bg-red-100 opacity-5`,
-							isOptionsOpen ? "flex" : "hidden",
-						)}
-					/>
-					<div
-						className="relative cursor-pointer"
-						onClick={() => {
-							setIsOptionsOpen((current) => {
-								return !current;
-							});
-						}}>
-						<ul
-							className={clsx(
-								`absolute gap-1 flex-col bg-purple-100 p-2 py-1 rounded-sm z-50`,
-								isOptionsOpen ? "flex" : "hidden",
-								isOwn
-									? "right-1 top-full translate-y-2"
-									: "right-0 translate-x-full"
-							)}>
-							{!data.image && <li onClick={handleCopy}>Copy</li>}
-							{isOwn && <li onClick={handleDelete}>Delete</li>}
-						</ul>
-						<BsThreeDotsVertical size={15} />
-					</div>
+		<>
+			
+			<div className={container}>
+				<div className={avatar}>
+					<Avatar user={data.sender} />
 				</div>
-				<div className={message}>
-					{data.image ? (
-						<>
-							<ImageModal
-								isOpen={isModalOpen}
-								onClose={() => {
-									setIsModalOpen(false);
-								}}
-								image={data.image}
-							/>
-							<div
-								onClick={() => setIsModalOpen(true)}
-								className="relative h-40 w-40 md:h-72 md:w-72 ">
-								<Image
-									alt="sentimage"
-									className="object-contain"
-									src={data.image}
-									fill
+				<div className={body}>
+					<div className="flex items-center gap-1 ">
+						<div className="text-sm text-gray-500">{data.sender.name}</div>
+						<div className="text-xs text-gray-400">
+							{data.createdAt ? format(new Date(data.createdAt), "p") : ""}
+						</div>
+						<div
+							onClick={() => {
+								setIsOptionsOpen((current) => {
+									return !current;
+								});
+							}}
+							className={clsx(
+								`absolute w-screen h-screen top-0 left-0 bg-red-100 opacity-5`,
+								isOptionsOpen ? "flex" : "hidden"
+							)}
+						/>
+						<div
+							className="relative cursor-pointer"
+							onClick={() => {
+								setIsOptionsOpen((current) => {
+									return !current;
+								});
+							}}>
+							<ul
+								className={clsx(
+									`absolute gap-1 flex-col bg-purple-100 p-2 py-1 rounded-sm z-50`,
+									isOptionsOpen ? "flex" : "hidden",
+									isOwn
+										? "right-1 top-full translate-y-2"
+										: "right-0 translate-x-full"
+								)}>
+								{!data.image && <li onClick={handleCopy}>Copy</li>}
+								{isOwn && <li onClick={handleDelete}>Delete</li>}
+							</ul>
+							<BsThreeDotsVertical size={15} />
+						</div>
+					</div>
+					<div className={message}>
+						{data.image ? (
+							<>
+								<ImageModal
+									isOpen={isModalOpen}
+									onClose={() => {
+										setIsModalOpen(false);
+									}}
+									image={data.image}
 								/>
-							</div>
-						</>
-					) : (
-						<div>{data.body}</div>
+								<div
+									onClick={() => setIsModalOpen(true)}
+									className="relative h-40 w-40 md:h-72 md:w-72 ">
+									<Image
+										alt="sentimage"
+										className="object-contain"
+										src={data.image}
+										fill
+									/>
+								</div>
+							</>
+						) : (
+							<div className=" break-words">{data.body}</div>
+						)}
+					</div>
+					{isLast && isOwn && seenList.length > 0 && (
+						<div className="text-xs text-gray-400">{`Seen by ${seenList}`}</div>
 					)}
 				</div>
-				{isLast && isOwn && seenList.length > 0 && (
-					<div className="text-xs text-gray-400">{`Seen by ${seenList}`}</div>
-				)}
 			</div>
-		</div>
+		</>
 	);
 };
 

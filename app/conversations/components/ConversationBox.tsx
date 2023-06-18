@@ -57,7 +57,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
 		}
 
 		if (lastMessage?.body) {
-			return lastMessage.body;
+			return `${lastMessage.body.split("").slice(0,25).join("")} ${(lastMessage.body.split("").length >25? "...":'')}`;
 		}
 
 		return "Started a conversation";
